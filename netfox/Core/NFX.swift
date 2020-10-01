@@ -48,7 +48,7 @@ open class NFX: NSObject {
     fileprivate var enabled: Bool = false
     fileprivate var selectedGesture: ENFXGesture = .shake
     fileprivate var ignoredURLs = [String]()
-    fileprivate var ignoredURLsRegex = NSRegularExpression()
+    fileprivate var ignoredURLsRegex = [NSRegularExpression()]
     fileprivate var filters = [Bool]()
     fileprivate var lastVisitDate: Date = Date()
     
@@ -168,7 +168,7 @@ open class NFX: NSObject {
     }
     
     @objc open func ignoreURLsWithRegex(_ regex: String) {
-        ignoredURLsRegex = NSRegularExpression(regex)
+        ignoredURLsRegex.append(NSRegularExpression(regex))
     }
     
     internal func getLastVisitDate() -> Date {
@@ -220,7 +220,7 @@ open class NFX: NSObject {
         return ignoredURLs
     }
     
-    func getIgnoredURLsRegex() -> NSRegularExpression {
+    func getIgnoredURLsRegexes() -> [NSRegularExpression] {
         return ignoredURLsRegex
     }
     
