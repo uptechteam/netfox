@@ -282,6 +282,25 @@ extension NFX {
     }
 }
 
+extension NFX {
+    @objc open func show(on presentingViewController: UIViewController)
+    {
+        guard started else { return }
+        showNFX(on: presentingViewController)
+    }
+
+    fileprivate func showNFX(on presentingViewController: UIViewController)
+    {
+        guard !presented else { return }
+
+        let navigationController = UINavigationController(rootViewController: NFXListController_iOS())
+        navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.NFXOrangeColor()]
+        navigationController.modalPresentationStyle = .fullScreen
+        presentingViewController.present(navigationController, animated: true, completion: nil)
+        presented = true
+    }
+}
+
 extension NFX: UIAdaptivePresentationControllerDelegate {
 
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
